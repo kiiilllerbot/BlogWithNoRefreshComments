@@ -1,0 +1,35 @@
+<% if user_signed_in? %>
+  <%= link_to "Log-out", destroy_user_session_path,method: :delete %>
+<% else %>
+  <%= link_to "Sign-in",new_user_session_path %>
+  <%= link_to "Sign-up",new_user_registration_path %>
+<% end %>
+
+<h1>Posts</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Body</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @posts.each do |post| %>
+      <tr>
+        <td><%= post.title %></td>
+        <td><%= post.body %></td>
+        <td><%= link_to 'Show', post %></td>
+        <td><%= link_to 'Edit', edit_post_path(post) %></td>
+        <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= pluralize(post.comments.count,"Comments") %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Post', new_post_path %>
